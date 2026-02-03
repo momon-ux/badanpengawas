@@ -39,41 +39,60 @@
 
 <div class="card">
   <h2>Borang Pengisian</h2>
+  
   <label>Tahun</label>
   <select id="tahun">
     <option>Tahun 1</option>
     <option>Tahun 2</option>
     <option>Tahun 3</option>
   </select>
+
   <label>Kelas</label>
-  <select id="kelas">
-    <option>ILTIZAM</option>
-    <option>JAYYID</option>
-    <option>KHOIR</option>
-    <option>MUMTAZ</option>
-  </select>
+  <select id="kelas"></select>
+
   <label>Nama Guru Kelas</label>
   <input type="text" id="guru" placeholder="Contoh: Cikgu Ahmad bin Ali" />
+
   <label>Nama Murid</label>
   <input type="text" id="nama" placeholder="Nama penuh murid" />
+
   <label>Jawatan</label>
   <select id="jawatan">
-    <option>Ketua Pengawas</option>
-    <option>Penolong Ketua Pengawas</option>
-    <option>Pengawas</option>
+    <option value="">-- Pilih Jawatan --</option>
+    <option>Ketua Kelas</option>
+    <option>Penolong Ketua Kelas</option>
+    <option>Pengawas Sekolah</option>
+    <option>Pengawas Pusat Sumber</option>
+    <option>Pengawas PPDA</option>
+    <option>Pengawas SPBT</option>
+    <option>Pembimbing Rakan Sebaya</option>
   </select>
+
   <button onclick="tambahData()">Tambah Senarai</button>
 </div>
 
 <div class="card">
-  <h2>Carta Guru Kelas & Pengawas</h2>
-  <p style="text-align:center">Paparan jumlah pengawas mengikut Tahun & Kelas</p>
-  <canvas id="cartaPengawas" height="120"></canvas>
-</div>
+  <h2>Senarai Mengikut Kelas</h2>
 
-<div class="card">
-  <h2>Senarai Pengawas</h2>
+  <label>Pilih Tahun</label>
+  <select id="tapisTahun" onchange="tapisData()">
+    <option value="Semua">Semua</option>
+    <option value="Tahun 1">Tahun 1</option>
+    <option value="Tahun 2">Tahun 2</option>
+    <option value="Tahun 3">Tahun 3</option>
+  </select>
+
+  <label>Pilih Kelas</label>
+  <select id="tapisKelas" onchange="tapisData()">
+    <option value="Semua">Semua</option>
+    <option value="ILTIZAM">ILTIZAM</option>
+    <option value="JAYYID">JAYYID</option>
+    <option value="KHOIR">KHOIR</option>
+    <option value="MUMTAZ">MUMTAZ</option>
+  </select>
+
   <button onclick="muatTurunCSV()">⬇️ Muat Turun Semua Data (CSV)</button>
+
   <table id="jadual">
     <tr>
       <th>Tahun</th>
@@ -85,8 +104,25 @@
   </table>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+function kemaskiniSenaraiKelas() {
+  const tahun = document.getElementById('tahun').value;
+  const kelasSelect = document.getElementById('kelas');
+  kelasSelect.innerHTML = '';
+
+  const senaraiKelas = ['ILTIZAM', 'JAYYID', 'KHOIR', 'MUMTAZ'];
+
+  senaraiKelas.forEach(k => {
+    const option = document.createElement('option');
+    option.text = k;
+    option.value = k;
+    kelasSelect.appendChild(option);
+  });
+}
+
+document.getElementById('tahun').addEventListener('change', kemaskiniSenaraiKelas);
+window.addEventListener('load', kemaskiniSenaraiKelas);
+
 function tambahData() {
   const tahun = document.getElementById('tahun').value;
   const kelas = document.getElementById('kelas').value;
@@ -94,7 +130,10 @@ function tambahData() {
   const nama = document.getElementById('nama').value;
   const jawatan = document.getElementById('jawatan').value;
 
-  if (nama === '') { alert('Sila masukkan nama murid'); return; }
+  if (!nama || !jawatan) {
+    alert('Sila isi nama murid dan jawatan');
+    return;
+  }
 
   const jadual = document.getElementById('jadual');
   const row = jadual.insertRow(-1);
@@ -106,50 +145,58 @@ function tambahData() {
 
   document.getElementById('nama').value = '';
   document.getElementById('guru').value = '';
-  kemaskiniCarta();
+
+  tapisData();
+}
+
+function tapisData() {
+  const tahun = document.getElementById('tapisTahun').value;
+  const kelas = document.getElementById('tapisKelas').value;
+  const rows = document.querySelectorAll('#jadual tr');
+
+  rows.forEach((row, index) => {
+    if (index === 0) return;
+
+    const rTahun = row.cells[0].innerText;
+    const rKelas = row.cells[1].innerText;
+
+    let papar = true;
+
+    if (tahun !== 'Semua' && tahun !== rTahun) papar = false;
+    if (kelas !== 'Semua' && kelas !== rKelas) papar = false;
+
+    row.style.display = papar ? '' : 'none';
+  });
 }
 
 function muatTurunCSV() {
   const rows = document.querySelectorAll('#jadual tr');
   let csv = [];
+
   rows.forEach(row => {
     const cols = row.querySelectorAll('th, td');
     let data = [];
     cols.forEach(col => data.push('"' + col.innerText + '"'));
     csv.push(data.join(','));
   });
-  const csvContent = csv.join('\n'); // FIXED Unexpected EOF
+
+  const csvContent = csv.join('\n');
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
+
   const link = document.createElement('a');
-  link.setAttribute('href', url);
-  link.setAttribute('download', 'Senarai_Pengawas_SK_Ranggu_2026.csv');
+  link.href = url;
+  link.download = 'Senarai_Pengawas_SK_Ranggu_2026.csv';
   link.click();
 }
 
-function kemaskiniCarta() {
-  const data = {};
-  const rows = document.querySelectorAll('#jadual tr');
-  rows.forEach((row, index) => {
-    if (index === 0) return;
-    const tahun = row.cells[0].innerText;
-    const kelas = row.cells[1].innerText;
-    const key = tahun + ' ' + kelas;
-    data[key] = (data[key] || 0) + 1;
-  });
-
-  const labels = Object.keys(data);
-  const values = Object.values(data);
-  if (window.carta) window.carta.destroy();
-  window.carta = new Chart(document.getElementById('cartaPengawas'), {
-    type: 'bar',
-    data: { labels: labels, datasets: [{ label: 'Bilangan Pengawas', data: values }] },
-    options: { responsive: true, plugins: { legend: { display: false } } }
-  });
-}
+/* Basic Test Cases */
+console.assert(typeof tambahData === 'function', 'tambahData function missing');
+console.assert(typeof tapisData === 'function', 'tapisData function missing');
+console.assert(typeof muatTurunCSV === 'function', 'muatTurunCSV function missing');
 </script>
 
-<footer style="text-align:center; font-style: italic; color:#555; margin-top:40px;">
+<footer>
   Dibangunkan oleh <strong>Cikgu Mohammad Fikrey Bin Abdul Gapar</strong><br>
   Unit Disiplin Sesi Petang – Murid Tahap 1
 </footer>
