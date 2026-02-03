@@ -5,26 +5,24 @@
   <title>SENARAI SEMAK PELANTIKAN JAWATAN MURID</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #e0f2fe, #f8fafc);
-      margin: 0;
-      padding: 20px;
-    }
-    h1 { text-align: center; color: #0f172a; letter-spacing: 1px; }
-    h2 { text-align: center; color: #1e3a8a; }
-    .header { background: linear-gradient(90deg, #2563eb, #38bdf8); color: white; padding: 20px; border-radius: 16px; max-width: 1000px; margin: 0 auto 25px auto; box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
-    .header p { margin: 5px 0; }
-    .card { background: #ffffff; border-radius: 16px; padding: 25px; margin: 20px auto; max-width: 900px; box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
-    label { font-weight: 600; display: block; margin-top: 12px; color: #334155; }
-    select, input { width: 100%; padding: 12px; margin-top: 6px; border-radius: 10px; border: 1px solid #cbd5f5; font-size: 14px; }
-    button { margin-top: 20px; padding: 12px 24px; background: linear-gradient(90deg, #2563eb, #38bdf8); color: white; border: none; border-radius: 999px; cursor: pointer; font-weight: bold; font-size: 14px; }
-    button:hover { opacity: 0.9; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; overflow: hidden; border-radius: 12px; }
-    th, td { padding: 12px; text-align: center; }
-    th { background: #2563eb; color: white; }
-    tr:nth-child(even) { background: #f1f5f9; }
-    footer { text-align: center; font-style: italic; color: #475569; margin-top: 50px; font-size: 13px; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg,#e0f2fe,#f8fafc); margin:0; padding:20px; }
+    h1{text-align:center;color:#0f172a;letter-spacing:1px;}
+    h2{text-align:center;color:#1e3a8a;}
+    .header{background:linear-gradient(90deg,#2563eb,#38bdf8);color:white;padding:20px;border-radius:16px;max-width:1000px;margin:0 auto 25px auto;box-shadow:0 6px 16px rgba(0,0,0,0.15);}
+    .header p{margin:5px 0;}
+    .card{background:#fff;border-radius:16px;padding:25px;margin:20px auto;max-width:900px;box-shadow:0 8px 20px rgba(0,0,0,0.12);}
+    label{font-weight:600;display:block;margin-top:12px;color:#334155;}
+    select,input{width:100%;padding:12px;margin-top:6px;border-radius:10px;border:1px solid #cbd5f5;font-size:14px;}
+    button{margin-top:20px;padding:12px 24px;background:linear-gradient(90deg,#2563eb,#38bdf8);color:white;border:none;border-radius:999px;cursor:pointer;font-weight:bold;font-size:14px;}
+    button:hover{opacity:0.9;}
+    table{width:100%;border-collapse:collapse;margin-top:20px;overflow:hidden;border-radius:12px;}
+    th,td{padding:12px;text-align:center;}
+    th{background:#2563eb;color:white;}
+    tr:nth-child(even){background:#f1f5f9;}
+    .action-btn{padding:6px 10px;margin:2px;font-size:12px;border-radius:8px;cursor:pointer;}
+    .edit-btn{background:#f59e0b;color:white;border:none;}
+    .delete-btn{background:#ef4444;color:white;border:none;}
+    footer{text-align:center;font-style:italic;color:#475569;margin-top:50px;font-size:13px;}
   </style>
 </head>
 <body>
@@ -34,7 +32,7 @@
   <h2>SEKOLAH KEBANGSAAN RANGGU</h2>
   <p style="text-align:center">Peti Surat 842, 91008 Tawau, Sabah</p>
   <p style="text-align:center">Analisis Keperluan Jawatan Murid Berdasarkan Maklum Balas Guru Kelas</p>
-  <p style="text-align:center; font-weight:bold;">Sesi Persekolahan 2026</p>
+  <p style="text-align:center;font-weight:bold;">Sesi Persekolahan 2026</p>
 </div>
 
 <div class="card">
@@ -68,7 +66,7 @@
     <option>Pembimbing Rakan Sebaya</option>
   </select>
 
-  <button onclick="tambahData()">Tambah Senarai</button>
+  <button onclick="tambahData()">Tambah / Kemaskini Senarai</button>
 </div>
 
 <div class="card">
@@ -100,100 +98,144 @@
       <th>Guru Kelas</th>
       <th>Nama Murid</th>
       <th>Jawatan</th>
+      <th>Tindakan</th>
     </tr>
   </table>
 </div>
 
 <script>
+const senaraiKelas = ['ILTIZAM','JAYYID','KHOIR','MUMTAZ'];
+let editIndex = null; // simpan index row yang sedang diedit
+
 function kemaskiniSenaraiKelas() {
-  const tahun = document.getElementById('tahun').value;
   const kelasSelect = document.getElementById('kelas');
-  kelasSelect.innerHTML = '';
-
-  const senaraiKelas = ['ILTIZAM', 'JAYYID', 'KHOIR', 'MUMTAZ'];
-
-  senaraiKelas.forEach(k => {
-    const option = document.createElement('option');
-    option.text = k;
-    option.value = k;
+  kelasSelect.innerHTML='';
+  senaraiKelas.forEach(k=>{
+    const option=document.createElement('option');
+    option.text=k; option.value=k;
     kelasSelect.appendChild(option);
   });
 }
-
-document.getElementById('tahun').addEventListener('change', kemaskiniSenaraiKelas);
-window.addEventListener('load', kemaskiniSenaraiKelas);
 
 function tambahData() {
   const tahun = document.getElementById('tahun').value;
   const kelas = document.getElementById('kelas').value;
   const guru = document.getElementById('guru').value || 'Belum Diisi';
-  const nama = document.getElementById('nama').value;
+  const nama = document.getElementById('nama').value.trim();
   const jawatan = document.getElementById('jawatan').value;
 
-  if (!nama || !jawatan) {
-    alert('Sila isi nama murid dan jawatan');
-    return;
-  }
+  if(!nama){alert('Sila isi nama murid'); document.getElementById('nama').focus(); return;}
+  if(!jawatan){alert('Sila pilih jawatan'); document.getElementById('jawatan').focus(); return;}
 
   const jadual = document.getElementById('jadual');
-  const row = jadual.insertRow(-1);
-  row.insertCell(0).innerText = tahun;
-  row.insertCell(1).innerText = kelas;
-  row.insertCell(2).innerText = guru;
-  row.insertCell(3).innerText = nama;
-  row.insertCell(4).innerText = jawatan;
+  if(editIndex !== null){
+    // kemaskini baris sedia ada
+    const row = jadual.rows[editIndex];
+    row.cells[0].innerText = tahun;
+    row.cells[1].innerText = kelas;
+    row.cells[2].innerText = guru;
+    row.cells[3].innerText = nama;
+    row.cells[4].innerText = jawatan;
+    editIndex = null;
+  } else {
+    // tambah baris baru
+    const row = jadual.insertRow(-1);
+    row.insertCell(0).innerText=tahun;
+    row.insertCell(1).innerText=kelas;
+    row.insertCell(2).innerText=guru;
+    row.insertCell(3).innerText=nama;
+    row.insertCell(4).innerText=jawatan;
+    const cell = row.insertCell(5);
+    cell.innerHTML=`<button class="action-btn edit-btn" onclick="editRow(this)">Edit</button>
+                    <button class="action-btn delete-btn" onclick="hapusRow(this)">Hapus</button>`;
+  }
 
-  document.getElementById('nama').value = '';
-  document.getElementById('guru').value = '';
+  document.getElementById('nama').value='';
+  document.getElementById('guru').value='';
+  document.getElementById('jawatan').value='';
 
+  simpanData();
   tapisData();
 }
 
-function tapisData() {
+function editRow(btn){
+  const row = btn.parentElement.parentElement;
+  editIndex = row.rowIndex;
+  document.getElementById('tahun').value = row.cells[0].innerText;
+  document.getElementById('kelas').value = row.cells[1].innerText;
+  document.getElementById('guru').value = row.cells[2].innerText==='Belum Diisi' ? '' : row.cells[2].innerText;
+  document.getElementById('nama').value = row.cells[3].innerText;
+  document.getElementById('jawatan').value = row.cells[4].innerText;
+}
+
+function hapusRow(btn){
+  if(confirm('Adakah anda pasti mahu hapus data ini?')){
+    const row = btn.parentElement.parentElement;
+    row.parentElement.removeChild(row);
+    simpanData();
+  }
+}
+
+function tapisData(){
   const tahun = document.getElementById('tapisTahun').value;
   const kelas = document.getElementById('tapisKelas').value;
   const rows = document.querySelectorAll('#jadual tr');
-
-  rows.forEach((row, index) => {
-    if (index === 0) return;
-
+  rows.forEach((row,index)=>{
+    if(index===0) return;
     const rTahun = row.cells[0].innerText;
     const rKelas = row.cells[1].innerText;
-
-    let papar = true;
-
-    if (tahun !== 'Semua' && tahun !== rTahun) papar = false;
-    if (kelas !== 'Semua' && kelas !== rKelas) papar = false;
-
-    row.style.display = papar ? '' : 'none';
+    row.style.display=(tahun!=='Semua' && tahun!==rTahun)||(kelas!=='Semua' && kelas!==rKelas)?'none':'';
   });
 }
 
-function muatTurunCSV() {
+function simpanData(){
   const rows = document.querySelectorAll('#jadual tr');
-  let csv = [];
+  let data=[];
+  rows.forEach((row,index)=>{
+    if(index===0) return;
+    const cells = row.querySelectorAll('td');
+    data.push(Array.from(cells).slice(0,5).map(c=>c.innerText)); // exclude action btn
+  });
+  localStorage.setItem('senaraiMurid', JSON.stringify(data));
+}
 
-  rows.forEach(row => {
-    const cols = row.querySelectorAll('th, td');
-    let data = [];
-    cols.forEach(col => data.push('"' + col.innerText + '"'));
+function loadData(){
+  const data = JSON.parse(localStorage.getItem('senaraiMurid') || '[]');
+  const jadual = document.getElementById('jadual');
+  data.forEach(d=>{
+    const row = jadual.insertRow(-1);
+    d.forEach(cell=>row.insertCell(-1).innerText=cell);
+    const cell = row.insertCell(5);
+    cell.innerHTML=`<button class="action-btn edit-btn" onclick="editRow(this)">Edit</button>
+                    <button class="action-btn delete-btn" onclick="hapusRow(this)">Hapus</button>`;
+  });
+  tapisData();
+}
+
+function muatTurunCSV(){
+  const rows = document.querySelectorAll('#jadual tr');
+  let csv=[];
+  rows.forEach(row=>{
+    const cols = row.querySelectorAll('th,td');
+    const data = [];
+    cols.forEach((col,index)=>{
+      if(index===5) return; // skip action btn
+      data.push(`"${col.innerText}"`);
+    });
     csv.push(data.join(','));
   });
-
-  const csvContent = csv.join('\n');
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'Senarai_Pengawas_SK_Ranggu_2026.csv';
+  const csvContent="\uFEFF"+csv.join('\n');
+  const blob=new Blob([csvContent],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement('a');
+  link.href=url;
+  link.download='Senarai_Pengawas_SK_Ranggu_2026.csv';
   link.click();
 }
 
-/* Basic Test Cases */
-console.assert(typeof tambahData === 'function', 'tambahData function missing');
-console.assert(typeof tapisData === 'function', 'tapisData function missing');
-console.assert(typeof muatTurunCSV === 'function', 'muatTurunCSV function missing');
+// Event listeners
+document.getElementById('tahun').addEventListener('change', kemaskiniSenaraiKelas);
+window.addEventListener('load',()=>{ kemaskiniSenaraiKelas(); loadData(); });
 </script>
 
 <footer>
