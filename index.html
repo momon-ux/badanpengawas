@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sistem Senarai Pengawas Kelas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #e0f2fe, #f8fafc);
+      margin: 0;
+      padding: 20px;
+    }
+    h1 { text-align: center; color: #0f172a; letter-spacing: 1px; }
+    h2 { text-align: center; color: #1e3a8a; }
+    .header { background: linear-gradient(90deg, #2563eb, #38bdf8); color: white; padding: 20px; border-radius: 16px; max-width: 1000px; margin: 0 auto 25px auto; box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
+    .header p { margin: 5px 0; }
+    .card { background: #ffffff; border-radius: 16px; padding: 25px; margin: 20px auto; max-width: 900px; box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+    label { font-weight: 600; display: block; margin-top: 12px; color: #334155; }
+    select, input { width: 100%; padding: 12px; margin-top: 6px; border-radius: 10px; border: 1px solid #cbd5f5; font-size: 14px; }
+    button { margin-top: 20px; padding: 12px 24px; background: linear-gradient(90deg, #2563eb, #38bdf8); color: white; border: none; border-radius: 999px; cursor: pointer; font-weight: bold; font-size: 14px; }
+    button:hover { opacity: 0.9; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; overflow: hidden; border-radius: 12px; }
+    th, td { padding: 12px; text-align: center; }
+    th { background: #2563eb; color: white; }
+    tr:nth-child(even) { background: #f1f5f9; }
+    footer { text-align: center; font-style: italic; color: #475569; margin-top: 50px; font-size: 13px; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>SISTEM PENGISIAN SENARAI PENGAWAS SEKOLAH</h1>
+  <h2>SEKOLAH KEBANGSAAN RANGGU</h2>
+  <p style="text-align:center">Peti Surat 842, 91008 Tawau, Sabah</p>
+  <p style="text-align:center">Untuk Kegunaan Guru Kelas Tahun 1, 2 dan 3</p>
+  <p style="text-align:center; font-weight:bold;">Sesi Persekolahan 2026</p>
+</div>
+
+<div class="card">
+  <h2>Borang Pengisian</h2>
+  <label>Tahun</label>
+  <select id="tahun">
+    <option>Tahun 1</option>
+    <option>Tahun 2</option>
+    <option>Tahun 3</option>
+  </select>
+  <label>Kelas</label>
+  <select id="kelas">
+    <option>ILTIZAM</option>
+    <option>JAYYID</option>
+    <option>KHOIR</option>
+    <option>MUMTAZ</option>
+  </select>
+  <label>Nama Guru Kelas</label>
+  <input type="text" id="guru" placeholder="Contoh: Cikgu Ahmad bin Ali" />
+  <label>Nama Murid</label>
+  <input type="text" id="nama" placeholder="Nama penuh murid" />
+  <label>Jawatan</label>
+  <select id="jawatan">
+    <option>Ketua Pengawas</option>
+    <option>Penolong Ketua Pengawas</option>
+    <option>Pengawas</option>
+  </select>
+  <button onclick="tambahData()">Tambah Senarai</button>
+</div>
+
+<div class="card">
+  <h2>Carta Guru Kelas & Pengawas</h2>
+  <p style="text-align:center">Paparan jumlah pengawas mengikut Tahun & Kelas</p>
+  <canvas id="cartaPengawas" height="120"></canvas>
+</div>
+
+<div class="card">
+  <h2>Senarai Pengawas</h2>
+  <button onclick="muatTurunCSV()">⬇️ Muat Turun Semua Data (CSV)</button>
+  <table id="jadual">
+    <tr>
+      <th>Tahun</th>
+      <th>Kelas</th>
+      <th>Guru Kelas</th>
+      <th>Nama Murid</th>
+      <th>Jawatan</th>
+    </tr>
+  </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+function tambahData() {
+  const tahun = document.getElementById('tahun').value;
+  const kelas = document.getElementById('kelas').value;
+  const guru = document.getElementById('guru').value || 'Belum Diisi';
+  const nama = document.getElementById('nama').value;
+  const jawatan = document.getElementById('jawatan').value;
+
+  if (nama === '') { alert('Sila masukkan nama murid'); return; }
+
+  const jadual = document.getElementById('jadual');
+  const row = jadual.insertRow(-1);
+  row.insertCell(0).innerText = tahun;
+  row.insertCell(1).innerText = kelas;
+  row.insertCell(2).innerText = guru;
+  row.insertCell(3).innerText = nama;
+  row.insertCell(4).innerText = jawatan;
+
+  document.getElementById('nama').value = '';
+  document.getElementById('guru').value = '';
+  kemaskiniCarta();
+}
+
+function muatTurunCSV() {
+  const rows = document.querySelectorAll('#jadual tr');
+  let csv = [];
+  rows.forEach(row => {
+    const cols = row.querySelectorAll('th, td');
+    let data = [];
+    cols.forEach(col => data.push('"' + col.innerText + '"'));
+    csv.push(data.join(','));
+  });
+  const csvContent = csv.join('\n'); // FIXED Unexpected EOF
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', 'Senarai_Pengawas_SK_Ranggu_2026.csv');
+  link.click();
+}
+
+function kemaskiniCarta() {
+  const data = {};
+  const rows = document.querySelectorAll('#jadual tr');
+  rows.forEach((row, index) => {
+    if (index === 0) return;
+    const tahun = row.cells[0].innerText;
+    const kelas = row.cells[1].innerText;
+    const key = tahun + ' ' + kelas;
+    data[key] = (data[key] || 0) + 1;
+  });
+
+  const labels = Object.keys(data);
+  const values = Object.values(data);
+  if (window.carta) window.carta.destroy();
+  window.carta = new Chart(document.getElementById('cartaPengawas'), {
+    type: 'bar',
+    data: { labels: labels, datasets: [{ label: 'Bilangan Pengawas', data: values }] },
+    options: { responsive: true, plugins: { legend: { display: false } } }
+  });
+}
+</script>
+
+<footer style="text-align:center; font-style: italic; color:#555; margin-top:40px;">
+  Dibangunkan oleh <strong>Cikgu Mohammad Fikrey Bin Abdul Gapar</strong><br>
+  Unit Disiplin Sesi Petang – Murid Tahap 1
+</footer>
+
+</body>
+</html>
