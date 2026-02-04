@@ -1,247 +1,173 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <meta charset="UTF-8" />
-  <title>SENARAI SEMAK PELANTIKAN JAWATAN MURID</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg,#e0f2fe,#f8fafc); margin:0; padding:20px; }
-    h1{text-align:center;color:#0f172a;letter-spacing:1px;}
-    h2{text-align:center;color:#1e3a8a;}
-    .header{background:linear-gradient(90deg,#2563eb,#38bdf8);color:white;padding:20px;border-radius:16px;max-width:1000px;margin:0 auto 25px auto;box-shadow:0 6px 16px rgba(0,0,0,0.15);}
-    .header p{margin:5px 0;}
-    .card{background:#fff;border-radius:16px;padding:25px;margin:20px auto;max-width:900px;box-shadow:0 8px 20px rgba(0,0,0,0.12);}
-    label{font-weight:600;display:block;margin-top:12px;color:#334155;}
-    select,input{width:100%;padding:12px;margin-top:6px;border-radius:10px;border:1px solid #cbd5f5;font-size:14px;}
-    button{margin-top:20px;padding:12px 24px;background:linear-gradient(90deg,#2563eb,#38bdf8);color:white;border:none;border-radius:999px;cursor:pointer;font-weight:bold;font-size:14px;}
-    button:hover{opacity:0.9;}
-    table{width:100%;border-collapse:collapse;margin-top:20px;overflow:hidden;border-radius:12px;}
-    th,td{padding:12px;text-align:center;}
-    th{background:#2563eb;color:white;}
-    tr:nth-child(even){background:#f1f5f9;}
-    .action-btn{padding:6px 10px;margin:2px;font-size:12px;border-radius:8px;cursor:pointer;}
-    .edit-btn{background:#f59e0b;color:white;border:none;}
-    .delete-btn{background:#ef4444;color:white;border:none;}
-    footer{text-align:center;font-style:italic;color:#475569;margin-top:50px;font-size:13px;}
-  </style>
+<meta charset="UTF-8">
+<title>SENARAI SEMAK PELANTIKAN JAWATAN MURID</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Segoe UI,Arial;background:linear-gradient(135deg,#e0f2fe,#f8fafc);margin:0;padding:20px}
+h1,h2{text-align:center}
+.header{background:linear-gradient(90deg,#2563eb,#38bdf8);color:#fff;padding:20px;border-radius:16px;max-width:1000px;margin:auto}
+.card{background:#fff;border-radius:16px;padding:25px;margin:20px auto;max-width:900px;box-shadow:0 8px 20px rgba(0,0,0,.12)}
+label{font-weight:600;margin-top:12px;display:block}
+select,input{width:100%;padding:10px;border-radius:10px;border:1px solid #cbd5f5;margin-top:5px}
+button{margin-top:15px;padding:10px 20px;border:none;border-radius:999px;background:#2563eb;color:#fff;font-weight:bold;cursor:pointer}
+table{width:100%;border-collapse:collapse;margin-top:20px}
+th,td{padding:10px;text-align:center}
+th{background:#2563eb;color:#fff}
+tr:nth-child(even){background:#f1f5f9}
+.action{font-size:12px;padding:5px 10px;border-radius:6px;border:none;color:#fff;cursor:pointer}
+.edit{background:#f59e0b}
+.delete{background:#ef4444}
+footer{text-align:center;margin-top:40px;font-style:italic}
+</style>
 </head>
+
 <body>
 
 <div class="header">
-  <h1>SENARAI SEMAKAN PELANTIKAN JAWATAN MURID</h1>
-  <h2>SEKOLAH KEBANGSAAN RANGGU</h2>
-  <p style="text-align:center">Peti Surat 842, 91008 Tawau, Sabah</p>
-  <p style="text-align:center">Analisis Keperluan Jawatan Murid Berdasarkan Maklum Balas Guru Kelas</p>
-  <p style="text-align:center;font-weight:bold;">Sesi Persekolahan 2026</p>
+<h1>SENARAI SEMAKAN PELANTIKAN JAWATAN MURID</h1>
+<h2>SEKOLAH KEBANGSAAN RANGGU</h2>
+<p style="text-align:center">Sesi Persekolahan 2026</p>
 </div>
 
 <div class="card">
-  <h2>Borang Pengisian</h2>
-  
-  <label>Tahun</label>
-  <select id="tahun">
-    <option>Tahun 1</option>
-    <option>Tahun 2</option>
-    <option>Tahun 3</option>
-  </select>
+<h2>Borang Pengisian</h2>
 
-  <label>Kelas</label>
-  <select id="kelas"></select>
+<label>Tahun</label>
+<select id="tahun">
+<option>Tahun 1</option>
+<option>Tahun 2</option>
+<option>Tahun 3</option>
+</select>
 
-  <label>Nama Guru Kelas</label>
-  <input type="text" id="guru" placeholder="Contoh: Cikgu Mohammad Fikrey Bin Abdul Gapar" />
+<label>Kelas</label>
+<select id="kelas">
+<option>ILTIZAM</option>
+<option>JAYYID</option>
+<option>KHOIR</option>
+<option>MUMTAZ</option>
+</select>
 
-  <label>Nama Murid</label>
-  <input type="text" id="nama" placeholder="Nama penuh murid" />
+<label>Guru Kelas</label>
+<input id="guru" placeholder="Nama guru kelas">
 
-  <label>Jawatan</label>
-  <select id="jawatan">
-    <option value="">-- Pilih Jawatan --</option>
-    <option>Ketua Kelas</option>
-    <option>Penolong Ketua Kelas</option>
-    <option>Pengawas Sekolah</option>
-    <option>Pengawas Pusat Sumber</option>
-    <option>Pengawas PPDA</option>
-    <option>Pengawas SPBT</option>
-    <option>Pembimbing Rakan Sebaya</option>
-  </select>
+<label>Nama Murid</label>
+<input id="nama" placeholder="Nama penuh murid">
 
-  <button onclick="tambahData()">Tambah / Kemaskini Senarai</button>
+<label>Jawatan</label>
+<select id="jawatan">
+<option value="">-- Pilih Jawatan --</option>
+<option>Ketua Kelas</option>
+<option>Penolong Ketua Kelas</option>
+<option>Pengawas Sekolah</option>
+<option>Pengawas Pusat Sumber</option>
+<option>Pengawas PPDA</option>
+<option>Pengawas SPBT</option>
+<option>Pembimbing Rakan Sebaya</option>
+</select>
+
+<button onclick="simpan()">Simpan Data</button>
 </div>
 
 <div class="card">
-  <h2>Senarai Mengikut Kelas</h2>
+<h2>Senarai Murid</h2>
 
-  <label>Pilih Tahun</label>
-  <select id="tapisTahun" onchange="tapisData()">
-    <option value="Semua">Semua</option>
-    <option value="Tahun 1">Tahun 1</option>
-    <option value="Tahun 2">Tahun 2</option>
-    <option value="Tahun 3">Tahun 3</option>
-  </select>
+<table id="jadual">
+<tr>
+<th>Tahun</th>
+<th>Kelas</th>
+<th>Guru</th>
+<th>Nama Murid</th>
+<th>Jawatan</th>
+<th>Tindakan</th>
+</tr>
+</table>
 
-  <label>Pilih Kelas</label>
-  <select id="tapisKelas" onchange="tapisData()">
-    <option value="Semua">Semua</option>
-    <option value="ILTIZAM">ILTIZAM</option>
-    <option value="JAYYID">JAYYID</option>
-    <option value="KHOIR">KHOIR</option>
-    <option value="MUMTAZ">MUMTAZ</option>
-  </select>
-
-  <button onclick="muatTurunCSV()">⬇️ Muat Turun Semua Data (CSV)</button>
-
-  <table id="jadual">
-    <tr>
-      <th>Tahun</th>
-      <th>Kelas</th>
-      <th>Guru Kelas</th>
-      <th>Nama Murid</th>
-      <th>Jawatan</th>
-      <th>Tindakan</th>
-    </tr>
-  </table>
+<button onclick="muatTurunCSV()">⬇️ Muat Turun CSV</button>
 </div>
 
 <script>
-const senaraiKelas = ['ILTIZAM','JAYYID','KHOIR','MUMTAZ'];
-let editIndex = null; // simpan index row yang sedang diedit
+let dataMurid = JSON.parse(localStorage.getItem("DATA_MURID")) || [];
+let editIndex = null;
 
-function kemaskiniSenaraiKelas() {
-  const kelasSelect = document.getElementById('kelas');
-  kelasSelect.innerHTML='';
-  senaraiKelas.forEach(k=>{
-    const option=document.createElement('option');
-    option.text=k; option.value=k;
-    kelasSelect.appendChild(option);
+function paparJadual(){
+  const jadual = document.getElementById("jadual");
+  jadual.innerHTML = `
+  <tr>
+    <th>Tahun</th><th>Kelas</th><th>Guru</th>
+    <th>Nama Murid</th><th>Jawatan</th><th>Tindakan</th>
+  </tr>`;
+  dataMurid.forEach((d,i)=>{
+    const r = jadual.insertRow();
+    d.forEach(v=>r.insertCell().innerText=v);
+    r.insertCell().innerHTML =
+      `<button class="action edit" onclick="edit(${i})">Edit</button>
+       <button class="action delete" onclick="hapus(${i})">Hapus</button>`;
   });
 }
 
-function tambahData() {
-  const tahun = document.getElementById('tahun').value;
-  const kelas = document.getElementById('kelas').value;
-  const guru = document.getElementById('guru').value || 'Belum Diisi';
-  const nama = document.getElementById('nama').value.trim();
-  const jawatan = document.getElementById('jawatan').value;
+function simpan(){
+  const tahun=tahunEl.value, kelas=kelasEl.value;
+  const guru=guruEl.value||"Belum Diisi";
+  const nama=namaEl.value.trim();
+  const jawatan=jawatanEl.value;
 
-  if(!nama){alert('Sila isi nama murid'); document.getElementById('nama').focus(); return;}
-  if(!jawatan){alert('Sila pilih jawatan'); document.getElementById('jawatan').focus(); return;}
+  if(!nama||!jawatan){alert("Sila lengkapkan maklumat");return;}
 
-  const jadual = document.getElementById('jadual');
-  if(editIndex !== null){
-    // kemaskini baris sedia ada
-    const row = jadual.rows[editIndex];
-    row.cells[0].innerText = tahun;
-    row.cells[1].innerText = kelas;
-    row.cells[2].innerText = guru;
-    row.cells[3].innerText = nama;
-    row.cells[4].innerText = jawatan;
-    editIndex = null;
-  } else {
-    // tambah baris baru
-    const row = jadual.insertRow(-1);
-    row.insertCell(0).innerText=tahun;
-    row.insertCell(1).innerText=kelas;
-    row.insertCell(2).innerText=guru;
-    row.insertCell(3).innerText=nama;
-    row.insertCell(4).innerText=jawatan;
-    const cell = row.insertCell(5);
-    cell.innerHTML=`<button class="action-btn edit-btn" onclick="editRow(this)">Edit</button>
-                    <button class="action-btn delete-btn" onclick="hapusRow(this)">Hapus</button>`;
+  const rekod=[tahun,kelas,guru,nama,jawatan];
+
+  if(editIndex!==null){
+    dataMurid[editIndex]=rekod;
+    editIndex=null;
+  }else{
+    dataMurid.push(rekod);
   }
 
-  document.getElementById('nama').value='';
-  document.getElementById('guru').value='';
-  document.getElementById('jawatan').value='';
-
-  simpanData();
-  tapisData();
+  localStorage.setItem("DATA_MURID",JSON.stringify(dataMurid));
+  namaEl.value=""; guruEl.value=""; jawatanEl.value="";
+  paparJadual();
 }
 
-function editRow(btn){
-  const row = btn.parentElement.parentElement;
-  editIndex = row.rowIndex;
-  document.getElementById('tahun').value = row.cells[0].innerText;
-  document.getElementById('kelas').value = row.cells[1].innerText;
-  document.getElementById('guru').value = row.cells[2].innerText==='Belum Diisi' ? '' : row.cells[2].innerText;
-  document.getElementById('nama').value = row.cells[3].innerText;
-  document.getElementById('jawatan').value = row.cells[4].innerText;
+function edit(i){
+  const d=dataMurid[i];
+  tahunEl.value=d[0]; kelasEl.value=d[1];
+  guruEl.value=d[2]=="Belum Diisi"?"":d[2];
+  namaEl.value=d[3]; jawatanEl.value=d[4];
+  editIndex=i;
 }
 
-function hapusRow(btn){
-  if(confirm('Adakah anda pasti mahu hapus data ini?')){
-    const row = btn.parentElement.parentElement;
-    row.parentElement.removeChild(row);
-    simpanData();
+function hapus(i){
+  if(confirm("Hapus data ini?")){
+    dataMurid.splice(i,1);
+    localStorage.setItem("DATA_MURID",JSON.stringify(dataMurid));
+    paparJadual();
   }
-}
-
-function tapisData(){
-  const tahun = document.getElementById('tapisTahun').value;
-  const kelas = document.getElementById('tapisKelas').value;
-  const rows = document.querySelectorAll('#jadual tr');
-  rows.forEach((row,index)=>{
-    if(index===0) return;
-    const rTahun = row.cells[0].innerText;
-    const rKelas = row.cells[1].innerText;
-    row.style.display=(tahun!=='Semua' && tahun!==rTahun)||(kelas!=='Semua' && kelas!==rKelas)?'none':'';
-  });
-}
-
-function simpanData(){
-  const rows = document.querySelectorAll('#jadual tr');
-  let data=[];
-  rows.forEach((row,index)=>{
-    if(index===0) return;
-    const cells = row.querySelectorAll('td');
-    data.push(Array.from(cells).slice(0,5).map(c=>c.innerText)); // exclude action btn
-  });
-  localStorage.setItem('senaraiMurid', JSON.stringify(data));
-}
-
-function loadData(){
-  const data = JSON.parse(localStorage.getItem('senaraiMurid') || '[]');
-  const jadual = document.getElementById('jadual');
-  data.forEach(d=>{
-    const row = jadual.insertRow(-1);
-    d.forEach(cell=>row.insertCell(-1).innerText=cell);
-    const cell = row.insertCell(5);
-    cell.innerHTML=`<button class="action-btn edit-btn" onclick="editRow(this)">Edit</button>
-                    <button class="action-btn delete-btn" onclick="hapusRow(this)">Hapus</button>`;
-  });
-  tapisData();
 }
 
 function muatTurunCSV(){
-  const rows = document.querySelectorAll('#jadual tr');
-  let csv=[];
-  rows.forEach(row=>{
-    const cols = row.querySelectorAll('th,td');
-    const data = [];
-    cols.forEach((col,index)=>{
-      if(index===5) return; // skip action btn
-      data.push(`"${col.innerText}"`);
-    });
-    csv.push(data.join(','));
-  });
-  const csvContent="\uFEFF"+csv.join('\n');
-  const blob=new Blob([csvContent],{type:'text/csv;charset=utf-8;'});
-  const url=URL.createObjectURL(blob);
-  const link=document.createElement('a');
-  link.href=url;
-  link.download='Senarai_Pengawas_SK_Ranggu_2026.csv';
-  link.click();
+  let csv="Tahun,Kelas,Guru,Nama Murid,Jawatan\n";
+  dataMurid.forEach(d=>csv+=`"${d.join('","')}"\n`);
+  const blob=new Blob(["\uFEFF"+csv],{type:"text/csv"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="Senarai_Jawatan_Murid_2026.csv";
+  a.click();
 }
 
-// Event listeners
-document.getElementById('tahun').addEventListener('change', kemaskiniSenaraiKelas);
-window.addEventListener('load',()=>{ kemaskiniSenaraiKelas(); loadData(); });
+const tahunEl=document.getElementById("tahun");
+const kelasEl=document.getElementById("kelas");
+const guruEl=document.getElementById("guru");
+const namaEl=document.getElementById("nama");
+const jawatanEl=document.getElementById("jawatan");
+
+paparJadual();
 </script>
 
 <footer>
-  Dibangunkan oleh <strong>Cikgu Mohammad Fikrey Bin Abdul Gapar</strong><br>
-  Unit Disiplin Sesi Petang – Murid Tahap 1
+Dibangunkan oleh Cikgu Mohammad Fikrey Bin Abdul Gapar
 </footer>
 
 </body>
 </html>
+
