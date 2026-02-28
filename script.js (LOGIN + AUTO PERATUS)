@@ -1,0 +1,38 @@
+// LOGIN (username & password boleh tukar)
+function login(){
+const user="disiplin";
+const pass="1234";
+
+let u=document.getElementById("username").value;
+let p=document.getElementById("password").value;
+
+if(u===user && p===pass){
+window.location.href="home.html";
+}else{
+document.getElementById("error").innerText="Login Salah!";
+}
+}
+
+// STATISTIK AUTO
+if(document.getElementById("total")){
+const lelaki=22;
+const perempuan=26;
+const total=lelaki+perempuan;
+
+document.getElementById("total").innerText=total;
+document.getElementById("lelaki").innerText=lelaki;
+document.getElementById("perempuan").innerText=perempuan;
+document.getElementById("percentL").innerText=((lelaki/total)*100).toFixed(1)+"%";
+document.getElementById("percentP").innerText=((perempuan/total)*100).toFixed(1)+"%";
+
+new Chart(document.getElementById("genderChart"),{
+type:"pie",
+data:{
+labels:["Lelaki","Perempuan"],
+datasets:[{
+data:[lelaki,perempuan],
+backgroundColor:["#3498db","#e91e63"]
+}]
+}
+});
+}
