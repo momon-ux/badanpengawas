@@ -1,3 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Senarai Nama Pengawas</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+<h2>Senarai Pengawas Unit Disiplin (48 Orang)</h2>
+</header>
+
+<div class="table-box">
+<table>
+<tr><th>Nama</th><th>Kelas</th></tr>
+
+<tr><td>Nurul Assyifa Awadah Binti Mohd Faizal</td><td>1 Iltizam</td></tr>
+<tr><td>Nur Zahirah Adreena Binti Arman</td><td>1 Jayyid</td></tr>
+<tr><td>Muhammad Fawwaz Bin Borhandi</td><td>1 Jayyid</td></tr>
+<tr><td>Ahmad Firdaian Bin Norman</td><td>1 Khoir</td></tr>
+<tr><td>Darisa Zuhayra Binti Rizan Hardinata</td><td>1 Mumtaz</td></tr>
+
+<!-- Tahun 2 -->
+<tr><td>Nur Alisya Sofia Binti Mohamad Ali</td><td>2 Iltizam</td></tr>
+<tr><td>Rizq Arfan Bin Mohd Azrul</td><td>2 Iltizam</td></tr>
+<tr><td>Aisy Ayra Binti Mursalin</td><td>2 Jayyid</td></tr>
+<tr><td>Fatimah Salikah Binti Tahang</td><td>2 Jayyid</td></tr>
+<tr><td>Muhammad Rahmat Fauzan Bin Ramli</td><td>2 Jayyid</td></tr>
+<tr><td>Harith Hanaqi Bin Hamsah</td><td>2 Jayyid</td></tr>
+<tr><td>Shah Haafizh Bin Rahim</td><td>2 Jayyid</td></tr>
+<tr><td>Nur Arissa Humairah Binti Herman</td><td>2 Jayyid</td></tr>
+<tr><td>Muhammad Azib Luqman Bin Masudi</td><td>2 Khoir</td></tr>
+<tr><td>Muhammad Arif Hafizuddin Bin Baharudin</td><td>2 Khoir</td></tr>
+<tr><td>Harraz Naufal Bin Shafie</td><td>2 Khoir</td></tr>
+<tr><td>Nur Zahirahtul Nasuha Binti Mohd Nasdrul Ikram</td><td>2 Khoir</td></tr>
+<tr><td>Nur Fateen Hafizah Basyirah Binti Rosli</td><td>2 Khoir</td></tr>
+<tr><td>Nur Hanisah Binti Abdullah</td><td>2 Khoir</td></tr>
+<tr><td>Ayrien Amanda Binti Abdul Marwan</td><td>2 Mumtaz</td></tr>
+<tr><td>Muhammad Rizq Syahmi Bin Sabturahim</td><td>2 Mumtaz</td></tr>
+<tr><td>Auni Falisha Binti Jading</td><td>2 Mumtaz</td></tr>
+<tr><td>Izz Ar Rayyan Bin Abdul Malik</td><td>2 Mumtaz</td></tr>
+<tr><td>Muhammad Rayqarl Aqeef Bin Rahim</td><td>2 Mumtaz</td></tr>
+<tr><td>Nurnathaniela Ariannie Binti Zamrie</td><td>2 Mumtaz</td></tr>
+
+<!-- Tahun 3 -->
+<tr><td>... (dan seterusnya ikut senarai laporan tuan)</td><td>3</td></tr>
+
+</table>
+</div>
+
+<a href="home.html" class="back-btn">⬅ Kembali</a>
+
+</body>
+</html>
 <h3>Tambah Pengawas</h3>
 
 <input type="text" id="nama" placeholder="Nama">
