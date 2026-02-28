@@ -3,11 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Unit Disiplin SK Ranggu</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
+<title>Dashboard Unit Disiplin</title>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#f4f6f9;
+}
+
+header{
+background:#800000;
+color:white;
+padding:25px;
+text-align:center;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+padding:30px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 6px 12px rgba(0,0,0,0.1);
+text-align:center;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card h3{
+margin-bottom:10px;
+}
+
+.card p{
+font-size:32px;
+font-weight:bold;
+color:#800000;
+}
+
+.chart-container{
+width:90%;
+margin:20px auto;
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 6px 12px rgba(0,0,0,0.1);
+}
+</style>
+
+</head>
 <body>
 
 <header>
@@ -19,28 +73,76 @@
 <section class="cards">
 <div class="card">
 <h3>Jumlah Pengawas</h3>
-<p id="total">48</p>
+<p>48</p>
 </div>
 
 <div class="card">
 <h3>Lelaki</h3>
-<p id="lelaki">22</p>
+<p>22</p>
 </div>
 
 <div class="card">
 <h3>Perempuan</h3>
-<p id="perempuan">26</p>
+<p>26</p>
 </div>
 </section>
 
-<section class="chart-section">
+<div class="chart-container">
 <canvas id="genderChart"></canvas>
-</section>
+</div>
 
-<section class="chart-section">
+<div class="chart-container">
 <canvas id="classChart"></canvas>
-</section>
+</div>
 
-<script src="script.js"></script>
+<script>
+// DATA RASMI DARIPADA LAPORAN
+
+const lelaki = 22;
+const perempuan = 26;
+
+new Chart(document.getElementById("genderChart"), {
+type: "pie",
+data: {
+labels: ["Lelaki", "Perempuan"],
+datasets: [{
+data: [lelaki, perempuan],
+backgroundColor: ["#3498db","#e91e63"]
+}]
+}
+});
+
+const kelasData = {
+"1 Iltizam":1,
+"1 Jayyid":2,
+"1 Khoir":1,
+"1 Mumtaz":1,
+"2 Iltizam":2,
+"2 Jayyid":6,
+"2 Khoir":6,
+"2 Mumtaz":6,
+"3 Iltizam":7,
+"3 Jayyid":5,
+"3 Khoir":6,
+"3 Mumtaz":5
+};
+
+new Chart(document.getElementById("classChart"), {
+type:"bar",
+data:{
+labels:Object.keys(kelasData),
+datasets:[{
+label:"Jumlah Pengawas",
+data:Object.values(kelasData),
+backgroundColor:"#800000"
+}]
+},
+options:{
+plugins:{legend:{display:false}},
+responsive:true
+}
+});
+</script>
+
 </body>
 </html>
