@@ -1,189 +1,23 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Unit Disiplin SK Ranggu</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<style>
-body{
-margin:0;
-font-family:Segoe UI, sans-serif;
-background:linear-gradient(135deg,#800000,#b22222);
-color:#333;
-}
-
-header{
-text-align:center;
-padding:30px;
-color:white;
-}
-
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-padding:30px;
-}
-
-.card{
-background:white;
-padding:25px;
-border-radius:15px;
-text-align:center;
-box-shadow:0 8px 18px rgba(0,0,0,0.2);
-transition:0.3s;
-}
-
-.card:hover{
-transform:translateY(-6px);
-}
-
-.card h3{
-margin-bottom:10px;
-}
-
-.card p{
-font-size:34px;
-font-weight:bold;
-color:#800000;
-}
-
-.chart-box{
-width:90%;
-margin:30px auto;
-background:white;
-padding:25px;
-border-radius:15px;
-box-shadow:0 8px 18px rgba(0,0,0,0.2);
-}
-
-button{
-display:block;
-margin:20px auto;
-padding:12px 25px;
-border:none;
-background:#800000;
-color:white;
-font-size:16px;
-border-radius:8px;
-cursor:pointer;
-}
-
-button:hover{
-background:#a00000;
-}
-</style>
+<title>Login Unit Disiplin</title>
+<link rel="stylesheet" href="style.css">
 </head>
+<body class="login-body">
 
-<body>
+<div class="login-box">
+<img src="logo.png" class="logo">
+<h2>Login Guru Disiplin</h2>
 
-<header>
-<h1>DASHBOARD UNIT DISIPLIN</h1>
-<h3>Enrolmen Pengawas Sesi Petang 2026</h3>
-<p>Sekolah Kebangsaan Ranggu, Tawau</p>
-</header>
+<input type="text" id="username" placeholder="Username">
+<input type="password" id="password" placeholder="Password">
 
-<section class="cards">
-<div class="card">
-<h3>Jumlah Pengawas</h3>
-<p>48</p>
+<button onclick="login()">Login</button>
+<p id="error"></p>
 </div>
 
-<div class="card">
-<h3>Lelaki</h3>
-<p>22</p>
-</div>
-
-<div class="card">
-<h3>Perempuan</h3>
-<p>26</p>
-</div>
-</section>
-
-<div class="chart-box">
-<canvas id="genderChart"></canvas>
-</div>
-
-<div class="chart-box">
-<canvas id="yearChart"></canvas>
-</div>
-
-<div class="chart-box">
-<canvas id="classChart"></canvas>
-</div>
-
-<button onclick="window.print()">Cetak Laporan</button>
-
-<script>
-// DATA RASMI DARIPADA LAPORAN
-
-const lelaki = 22;
-const perempuan = 26;
-
-// Carta Jantina
-new Chart(document.getElementById("genderChart"), {
-type:"pie",
-data:{
-labels:["Lelaki","Perempuan"],
-datasets:[{
-data:[lelaki,perempuan],
-backgroundColor:["#3498db","#e91e63"]
-}]
-}
-});
-
-// Data Mengikut Tahun
-const tahunData = {
-"Tahun 1":5,
-"Tahun 2":20,
-"Tahun 3":23
-};
-
-new Chart(document.getElementById("yearChart"), {
-type:"doughnut",
-data:{
-labels:Object.keys(tahunData),
-datasets:[{
-data:Object.values(tahunData),
-backgroundColor:["#f39c12","#27ae60","#8e44ad"]
-}]
-}
-});
-
-// Data Mengikut Kelas
-const kelasData = {
-"1 Iltizam":1,
-"1 Jayyid":2,
-"1 Khoir":1,
-"1 Mumtaz":1,
-"2 Iltizam":2,
-"2 Jayyid":6,
-"2 Khoir":6,
-"2 Mumtaz":6,
-"3 Iltizam":7,
-"3 Jayyid":5,
-"3 Khoir":6,
-"3 Mumtaz":5
-};
-
-new Chart(document.getElementById("classChart"), {
-type:"bar",
-data:{
-labels:Object.keys(kelasData),
-datasets:[{
-label:"Jumlah Pengawas",
-data:Object.values(kelasData),
-backgroundColor:"#800000"
-}]
-},
-options:{
-plugins:{legend:{display:false}},
-responsive:true
-}
-});
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
