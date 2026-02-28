@@ -1,62 +1,31 @@
 // =======================
-// LOGIN
-// =======================
-function login(){
-const user="disiplin";
-const pass="1234";
-
-let u=document.getElementById("username").value;
-let p=document.getElementById("password").value;
-
-if(u===user && p===pass){
-window.location.href="home.html";
-}else{
-document.getElementById("error").innerText="Login Salah!";
-}
-}
-
-// =======================
-// DATA STORAGE
+// DATA ASAL (boleh tambah semua 48 nama nanti)
 // =======================
 
 let defaultData = [
 {name:"Nurul Assyifa Awadah Binti Mohd Faizal",kelas:"1 Iltizam",jantina:"Perempuan"},
-{name:"Nur Zahirah Adreena Binti Arman",kelas:"1 Jayyid",jantina:"Perempuan"},
 {name:"Muhammad Fawwaz Bin Borhandi",kelas:"1 Jayyid",jantina:"Lelaki"},
 {name:"Ahmad Firdaian Bin Norman",kelas:"1 Khoir",jantina:"Lelaki"},
-{name:"Darisa Zuhayra Binti Rizan Hardinata",kelas:"1 Mumtaz",jantina:"Perempuan"},
+{name:"Darisa Zuhayra Binti Rizan Hardinata",kelas:"1 Mumtaz",jantina:"Perempuan"}
 ];
 
-// Load data
+// =======================
+// STORAGE
+// =======================
+
 function getData(){
 let data = localStorage.getItem("pengawas");
 return data ? JSON.parse(data) : defaultData;
 }
 
-// Save data
 function saveData(data){
 localStorage.setItem("pengawas", JSON.stringify(data));
 }
 
 // =======================
-// TAMBAH MURID
-// =======================
-function tambahPengawas(){
-let nama=document.getElementById("nama").value;
-let kelas=document.getElementById("kelas").value;
-let jantina=document.getElementById("jantina").value;
-
-if(nama==="") return alert("Isi nama dahulu");
-
-let data=getData();
-data.push({name:nama,kelas:kelas,jantina:jantina});
-saveData(data);
-location.reload();
-}
-
-// =======================
 // PAPAR SENARAI
 // =======================
+
 if(document.getElementById("tableBody")){
 let data=getData();
 let table=document.getElementById("tableBody");
@@ -74,8 +43,26 @@ table.innerHTML+=`
 }
 
 // =======================
+// TAMBAH
+// =======================
+
+function tambahPengawas(){
+let nama=document.getElementById("nama").value;
+let kelas=document.getElementById("kelas").value;
+let jantina=document.getElementById("jantina").value;
+
+if(nama==="") return alert("Isi nama dahulu");
+
+let data=getData();
+data.push({name:nama,kelas:kelas,jantina:jantina});
+saveData(data);
+location.reload();
+}
+
+// =======================
 // PADAM
 // =======================
+
 function padam(index){
 let data=getData();
 data.splice(index,1);
@@ -86,6 +73,7 @@ location.reload();
 // =======================
 // STATISTIK
 // =======================
+
 if(document.getElementById("total")){
 let data=getData();
 let lelaki=data.filter(d=>d.jantina==="Lelaki").length;
@@ -113,6 +101,7 @@ backgroundColor:["#3498db","#e91e63"]
 // =======================
 // EXPORT CSV
 // =======================
+
 function exportCSV(){
 let data=getData();
 let csv="Nama,Kelas,Jantina\n";
