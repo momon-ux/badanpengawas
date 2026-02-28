@@ -1,4 +1,6 @@
-// LOGIN (username & password boleh tukar)
+// =======================
+// LOGIN
+// =======================
 function login(){
 const user="disiplin";
 const pass="1234";
@@ -13,11 +15,82 @@ document.getElementById("error").innerText="Login Salah!";
 }
 }
 
-// STATISTIK AUTO
+// =======================
+// DATA STORAGE
+// =======================
+
+let defaultData = [
+{name:"Nurul Assyifa Awadah Binti Mohd Faizal",kelas:"1 Iltizam",jantina:"Perempuan"},
+{name:"Nur Zahirah Adreena Binti Arman",kelas:"1 Jayyid",jantina:"Perempuan"},
+{name:"Muhammad Fawwaz Bin Borhandi",kelas:"1 Jayyid",jantina:"Lelaki"},
+{name:"Ahmad Firdaian Bin Norman",kelas:"1 Khoir",jantina:"Lelaki"},
+{name:"Darisa Zuhayra Binti Rizan Hardinata",kelas:"1 Mumtaz",jantina:"Perempuan"},
+];
+
+// Load data
+function getData(){
+let data = localStorage.getItem("pengawas");
+return data ? JSON.parse(data) : defaultData;
+}
+
+// Save data
+function saveData(data){
+localStorage.setItem("pengawas", JSON.stringify(data));
+}
+
+// =======================
+// TAMBAH MURID
+// =======================
+function tambahPengawas(){
+let nama=document.getElementById("nama").value;
+let kelas=document.getElementById("kelas").value;
+let jantina=document.getElementById("jantina").value;
+
+if(nama==="") return alert("Isi nama dahulu");
+
+let data=getData();
+data.push({name:nama,kelas:kelas,jantina:jantina});
+saveData(data);
+location.reload();
+}
+
+// =======================
+// PAPAR SENARAI
+// =======================
+if(document.getElementById("tableBody")){
+let data=getData();
+let table=document.getElementById("tableBody");
+table.innerHTML="";
+
+data.forEach((d,index)=>{
+table.innerHTML+=`
+<tr>
+<td>${d.name}</td>
+<td>${d.kelas}</td>
+<td>${d.jantina}</td>
+<td><button onclick="padam(${index})">Padam</button></td>
+</tr>`;
+});
+}
+
+// =======================
+// PADAM
+// =======================
+function padam(index){
+let data=getData();
+data.splice(index,1);
+saveData(data);
+location.reload();
+}
+
+// =======================
+// STATISTIK
+// =======================
 if(document.getElementById("total")){
-const lelaki=22;
-const perempuan=26;
-const total=lelaki+perempuan;
+let data=getData();
+let lelaki=data.filter(d=>d.jantina==="Lelaki").length;
+let perempuan=data.filter(d=>d.jantina==="Perempuan").length;
+let total=data.length;
 
 document.getElementById("total").innerText=total;
 document.getElementById("lelaki").innerText=lelaki;
@@ -35,4 +108,24 @@ backgroundColor:["#3498db","#e91e63"]
 }]
 }
 });
+}
+
+// =======================
+// EXPORT CSV
+// =======================
+function exportCSV(){
+let data=getData();
+let csv="Nama,Kelas,Jantina\n";
+
+data.forEach(d=>{
+csv+=`${d.name},${d.kelas},${d.jantina}\n`;
+});
+
+let blob=new Blob([csv],{type:"text/csv"});
+let url=URL.createObjectURL(blob);
+
+let a=document.createElement("a");
+a.href=url;
+a.download="senarai_pengawas.csv";
+a.click();
 }
